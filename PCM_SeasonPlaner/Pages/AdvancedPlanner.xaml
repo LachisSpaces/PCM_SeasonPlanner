@@ -1,0 +1,387 @@
+﻿<Page x:Class="PCM_SeasonPlaner.Pages.AdvancedPlanner"
+    xmlns:dg="clr-namespace:Microsoft.Windows.Controls;assembly=WpfToolkit"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:PCM_SeasonPlaner" 
+    DataContext="{Binding Source={StaticResource Lang}}"
+    Loaded="Page_Loaded" Unloaded="Page_Unloaded">
+   <Page.Resources>
+      <XmlDataProvider x:Key="Visibility">
+         <x:XData>
+            <visibilities xmlns="">
+               <visibility text="show" value="Visible"/>
+               <visibility text="hide" value="Collapsed"/>
+            </visibilities>
+         </x:XData>
+      </XmlDataProvider>
+   </Page.Resources>
+   <Grid SnapsToDevicePixels="True" PreviewMouseWheel="Grid_PreviewMouseWheel">
+      <Grid.RowDefinitions>
+         <RowDefinition Height="*"/>
+         <RowDefinition Height="Auto"/>
+         <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      <TextBlock x:Name="txbVisibilityRaceName" Visibility="Visible" Grid.Row="0"/>
+      <TextBlock x:Name="txbVisibilityStageProfile" Visibility="Visible" Grid.Row="0"/>
+      <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" Grid.Row="0">
+         <Grid>
+            <Grid.RowDefinitions>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="*"/>
+               <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Expander x:Name="expRaceList" Grid.Row="0" Background="DarkGray" IsExpanded="True">
+               <Expander.Header>
+                  <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
+                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Label Content="{Binding XPath=Page_AdvancedPlanner/RaceList/@Text}"/>
+                     </StackPanel>
+                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,30,0">
+                        <Label Content="{Binding XPath=Page_AdvancedPlanner/RaceFilter/@Text}"/>
+                        <CheckBox x:Name="ckbRaceFilterSponsorObjective"    VerticalAlignment="Center" Margin="10,0,0,0" Content="{Binding XPath=Page_AdvancedPlanner/RaceFilter/SponsorObjective/@Text}" Click="ckbRaceFilterSponsorObjective_Click"/>
+                        <CheckBox x:Name="ckbRaceFilterAllowed"             VerticalAlignment="Center" Margin="10,0,0,0" Content="{Binding XPath=Page_AdvancedPlanner/RaceFilter/Allowed/@Text}" Click="ckbRaceFilterAllowed_Click"/>
+                        <CheckBox x:Name="ckbRaceFilterWorldTourStage"      VerticalAlignment="Center" Margin="10,0,0,0" Content="{Binding XPath=Page_AdvancedPlanner/RaceFilter/WorldTour_Stage/@Text}" Click="ckbRaceFilter_Click"/>
+                        <CheckBox x:Name="ckbRaceFilterWorldTourClassic"    VerticalAlignment="Center" Margin="10,0,0,0" Content="{Binding XPath=Page_AdvancedPlanner/RaceFilter/WorldTour_Classic/@Text}" Click="ckbRaceFilter_Click"/>
+                        <CheckBox x:Name="ckbRaceFilterHorsCategoryStage"   VerticalAlignment="Center" Margin="10,0,0,0" Content="{Binding XPath=Page_AdvancedPlanner/RaceFilter/HorsCategory_Stage/@Text}" Click="ckbRaceFilter_Click"/>
+                        <CheckBox x:Name="ckbRaceFilterHorsCategoryClassic" VerticalAlignment="Center" Margin="10,0,0,0" Content="{Binding XPath=Page_AdvancedPlanner/RaceFilter/HorsCategory_Classic/@Text}" Click="ckbRaceFilter_Click"/>
+                        <CheckBox x:Name="ckbRaceFilterCategory1Stage"      VerticalAlignment="Center" Margin="10,0,0,0" Content="{Binding XPath=Page_AdvancedPlanner/RaceFilter/Category1_Stage/@Text}" Click="ckbRaceFilter_Click"/>
+                        <CheckBox x:Name="ckbRaceFilterCategory1Classic"    VerticalAlignment="Center" Margin="10,0,0,0" Content="{Binding XPath=Page_AdvancedPlanner/RaceFilter/Category1_Classic/@Text}" Click="ckbRaceFilter_Click"/>
+                        <CheckBox x:Name="ckbRaceFilterCategory2Stage"      VerticalAlignment="Center" Margin="10,0,0,0" Content="{Binding XPath=Page_AdvancedPlanner/RaceFilter/Category2_Stage/@Text}" Click="ckbRaceFilter_Click"/>
+                        <CheckBox x:Name="ckbRaceFilterCategory2Classic"    VerticalAlignment="Center" Margin="10,0,0,0" Content="{Binding XPath=Page_AdvancedPlanner/RaceFilter/Category2_Classic/@Text}" Click="ckbRaceFilter_Click"/>
+                        <CheckBox x:Name="ckbRaceFilterOthers"              VerticalAlignment="Center" Margin="10,0,0,0" Content="{Binding XPath=Page_AdvancedPlanner/RaceFilter/Others/@Text}" Click="ckbRaceFilter_Click"/>
+                        <Label                                              Content="{Binding XPath=Page_AdvancedPlanner/RaceFilter/Country/@Text}" Margin="10,0,0,0"/>
+                        <ComboBox x:Name="cboRaceFilterCountry"             SelectionChanged="cboRaceFilterCountry_SelectionChanged" SelectedValuePath="IDcountry" DisplayMemberPath="CONSTANT" Width="100"/>
+                        <Label Content="{Binding XPath=Page_AdvancedPlanner/CalendarSize/@Text}" Margin="40,0,0,0"/>
+                        <ComboBox x:Name="cboCalendarSize" SelectionChanged="cboCalendarSize_SelectionChanged" ItemsSource="{Binding XPath=Page_AdvancedPlanner/CalendarSize/Options/Option}" DisplayMemberPath="@Text" SelectedValuePath="@Id" Width="100"/>
+                     </StackPanel>
+                  </Grid>
+               </Expander.Header>
+               <Grid Margin="2,0,0,2">
+                  <Grid.RowDefinitions>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="100"/>
+                     <ColumnDefinition Width="*"/>
+                     <ColumnDefinition Width="5"/>
+                  </Grid.ColumnDefinitions>
+                  <TextBlock Grid.Row="0" TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,0,0,0" Text="{Binding XPath=Page_AdvancedPlanner/RaceList/WorldTour/@Text}"/>
+                  <TextBlock Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,0,0,0" Text="{Binding XPath=Page_AdvancedPlanner/RaceList/HC/@Text}"/>
+                  <TextBlock Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,0,0,0" Text="{Binding XPath=Page_AdvancedPlanner/RaceList/Conti1/@Text}"/>
+                  <TextBlock Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,0,0,0" Text="{Binding XPath=Page_AdvancedPlanner/RaceList/Conti2/@Text}"/>
+                  <TextBlock Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,0,0,0" Text="{Binding XPath=Page_AdvancedPlanner/RaceList/Others/@Text}"/>
+                  <local:TimelinePanel x:Name="tlpRaceListPT" Grid.Row="0" Grid.Column="1" Margin="0,0,0,1" HorizontalAlignment="Stretch" Background="LightGray" PreviewMouseMove="tlpRaceList_PreviewMouseMove" PreviewMouseLeftButtonDown="tlpRaceList_PreviewMouseLeftButtonDown"/>
+                  <local:TimelinePanel x:Name="tlpRaceListC0" Grid.Row="1" Grid.Column="1" Margin="0,0,0,1" HorizontalAlignment="Stretch" Background="LightGray" PreviewMouseMove="tlpRaceList_PreviewMouseMove" PreviewMouseLeftButtonDown="tlpRaceList_PreviewMouseLeftButtonDown"/>
+                  <local:TimelinePanel x:Name="tlpRaceListC1" Grid.Row="2" Grid.Column="1" Margin="0,0,0,1" HorizontalAlignment="Stretch" Background="LightGray" PreviewMouseMove="tlpRaceList_PreviewMouseMove" PreviewMouseLeftButtonDown="tlpRaceList_PreviewMouseLeftButtonDown"/>
+                  <local:TimelinePanel x:Name="tlpRaceListC2" Grid.Row="3" Grid.Column="1" Margin="0,0,0,1" HorizontalAlignment="Stretch" Background="LightGray" PreviewMouseMove="tlpRaceList_PreviewMouseMove" PreviewMouseLeftButtonDown="tlpRaceList_PreviewMouseLeftButtonDown"/>
+                  <local:TimelinePanel x:Name="tlpRaceListXX" Grid.Row="4" Grid.Column="1" Margin="0,0,0,1" HorizontalAlignment="Stretch" Background="LightGray" PreviewMouseMove="tlpRaceList_PreviewMouseMove" PreviewMouseLeftButtonDown="tlpRaceList_PreviewMouseLeftButtonDown"/>
+               </Grid>
+            </Expander>
+            <Expander x:Name="expTeamRace" Grid.Row="1" Background="DarkGray" IsExpanded="True">
+               <Expander.Header>
+                  <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
+                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Label Content="{Binding XPath=Page_AdvancedPlanner/TeamRace/@Text}"/>
+                     </StackPanel>
+                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,30,0">
+                        <CheckBox x:Name="ckbVisibilityRaceName"     VerticalAlignment="Center" Margin="10,0,0,0" Content="{Binding XPath=Page_AdvancedPlanner/Visibility/RaceName/@Text}" Click="ckbVisibilityRaceName_Click" IsChecked="True"/>
+                        <CheckBox x:Name="ckbVisibilityStageProfile" VerticalAlignment="Center" Margin="10,0,50,0" Content="{Binding XPath=Page_AdvancedPlanner/Visibility/StageProfile/@Text}" Click="ckbVisibilityStageProfile_Click" IsChecked="True"/>
+                     </StackPanel>
+                  </Grid>
+               </Expander.Header>
+               <Grid Margin="2,0,0,3">
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="100"/>
+                     <ColumnDefinition Width="*"/>
+                     <ColumnDefinition Width="5"/>
+                  </Grid.ColumnDefinitions>
+                  <local:TimelinePanel x:Name="tlpTeamRace" Grid.Column="1" HorizontalAlignment="Stretch" Background="LightGray" AllowDrop="True" DragEnter="tlpTeamRace_DragEnter" DragOver="tlpTeamRace_DragOver" Drop="tlpTeamRace_Drop" PreviewMouseMove="tlpRaceList_PreviewMouseMove" PreviewMouseLeftButtonDown="tlpRaceList_PreviewMouseLeftButtonDown"/>
+               </Grid>
+            </Expander>
+            <Expander x:Name="expGroupRace0" Grid.Row="2" Background="DarkGray" IsExpanded="True" Visibility="Collapsed">
+               <Expander.Header>
+                  <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="78"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="31"/>
+                     </Grid.ColumnDefinitions>
+                     <Label x:Name="lblGroupRace0" Content="Group 1" Grid.Column="0"/>
+                     <local:TimelinePanel x:Name="tlpGroupRace0" Grid.Column="1" Height="14" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="LightGray" AllowDrop="True" DragEnter="tlpGroupRace_DragEnter" DragOver="tlpGroupRace_DragOver" Drop="tlpGroupRace_Drop" local:HlpProp.Index="0"/>
+                  </Grid>
+               </Expander.Header>
+               <Grid x:Name="grdGroupRace0" Margin="2,0,0,3">
+                  <Grid.RowDefinitions/>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="100"/>
+                     <ColumnDefinition Width="*"/>
+                     <ColumnDefinition Width="5"/>
+                  </Grid.ColumnDefinitions>
+               </Grid>
+            </Expander>
+            <Expander x:Name="expGroupRace1" Grid.Row="3" Background="DarkGray" IsExpanded="True" Visibility="Collapsed">
+               <Expander.Header>
+                  <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="78"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="31"/>
+                     </Grid.ColumnDefinitions>
+                     <Label x:Name="lblGroupRace1" Content="Group 2" Grid.Column="0"/>
+                     <local:TimelinePanel x:Name="tlpGroupRace1" Grid.Column="1" Height="14" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="LightGray" AllowDrop="True" DragEnter="tlpGroupRace_DragEnter" DragOver="tlpGroupRace_DragOver" Drop="tlpGroupRace_Drop" local:HlpProp.Index="1"/>
+                  </Grid>
+               </Expander.Header>
+               <Grid x:Name="grdGroupRace1" Margin="2,0,0,3">
+                  <Grid.RowDefinitions/>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="100"/>
+                     <ColumnDefinition Width="*"/>
+                     <ColumnDefinition Width="5"/>
+                  </Grid.ColumnDefinitions>
+               </Grid>
+            </Expander>
+            <Expander x:Name="expGroupRace2" Grid.Row="4" Background="DarkGray" IsExpanded="True" Visibility="Collapsed">
+               <Expander.Header>
+                  <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="78"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="31"/>
+                     </Grid.ColumnDefinitions>
+                     <Label x:Name="lblGroupRace2" Content="Group 3" Grid.Column="0"/>
+                     <local:TimelinePanel x:Name="tlpGroupRace2" Grid.Column="1" Height="14" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="LightGray" AllowDrop="True" DragEnter="tlpGroupRace_DragEnter" DragOver="tlpGroupRace_DragOver" Drop="tlpGroupRace_Drop" local:HlpProp.Index="2"/>
+                  </Grid>
+               </Expander.Header>
+               <Grid x:Name="grdGroupRace2" Margin="2,0,0,3">
+                  <Grid.RowDefinitions/>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="100"/>
+                     <ColumnDefinition Width="*"/>
+                     <ColumnDefinition Width="5"/>
+                  </Grid.ColumnDefinitions>
+               </Grid>
+            </Expander>
+            <Expander x:Name="expGroupRace3" Grid.Row="5" Background="DarkGray" IsExpanded="True" Visibility="Collapsed">
+               <Expander.Header>
+                  <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="78"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="31"/>
+                     </Grid.ColumnDefinitions>
+                     <Label x:Name="lblGroupRace3" Content="Group 4" Grid.Column="0"/>
+                     <local:TimelinePanel x:Name="tlpGroupRace3" Grid.Column="1" Height="14" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="LightGray" AllowDrop="True" DragEnter="tlpGroupRace_DragEnter" DragOver="tlpGroupRace_DragOver" Drop="tlpGroupRace_Drop" local:HlpProp.Index="3"/>
+                  </Grid>
+               </Expander.Header>
+               <Grid x:Name="grdGroupRace3" Margin="2,0,0,3">
+                  <Grid.RowDefinitions/>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="100"/>
+                     <ColumnDefinition Width="*"/>
+                     <ColumnDefinition Width="5"/>
+                  </Grid.ColumnDefinitions>
+               </Grid>
+            </Expander>
+            <Expander x:Name="expGroupRace4" Grid.Row="6" Background="DarkGray" IsExpanded="True" Visibility="Collapsed">
+               <Expander.Header>
+                  <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="78"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="31"/>
+                     </Grid.ColumnDefinitions>
+                     <Label x:Name="lblGroupRace4" Content="Group 5" Grid.Column="0"/>
+                     <local:TimelinePanel x:Name="tlpGroupRace4" Grid.Column="1" Height="14" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="LightGray" AllowDrop="True" DragEnter="tlpGroupRace_DragEnter" DragOver="tlpGroupRace_DragOver" Drop="tlpGroupRace_Drop" local:HlpProp.Index="4"/>
+                  </Grid>
+               </Expander.Header>
+               <Grid x:Name="grdGroupRace4" Margin="2,0,0,3">
+                  <Grid.RowDefinitions/>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="100"/>
+                     <ColumnDefinition Width="*"/>
+                     <ColumnDefinition Width="5"/>
+                  </Grid.ColumnDefinitions>
+               </Grid>
+            </Expander>
+            <Expander x:Name="expGroupRace5" Grid.Row="7" Background="DarkGray" IsExpanded="True" Visibility="Collapsed">
+               <Expander.Header>
+                  <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="78"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="31"/>
+                     </Grid.ColumnDefinitions>
+                     <Label x:Name="lblGroupRace5" Content="Group 6" Grid.Column="0"/>
+                     <local:TimelinePanel x:Name="tlpGroupRace5" Grid.Column="1" Height="14" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="LightGray" AllowDrop="True" DragEnter="tlpGroupRace_DragEnter" DragOver="tlpGroupRace_DragOver" Drop="tlpGroupRace_Drop" local:HlpProp.Index="5"/>
+                  </Grid>
+               </Expander.Header>
+               <Grid x:Name="grdGroupRace5" Margin="2,0,0,3">
+                  <Grid.RowDefinitions/>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="100"/>
+                     <ColumnDefinition Width="*"/>
+                     <ColumnDefinition Width="5"/>
+                  </Grid.ColumnDefinitions>
+               </Grid>
+            </Expander>
+            <Expander x:Name="expGroupRace6" Grid.Row="8" Background="DarkGray" IsExpanded="True" Visibility="Collapsed">
+               <Expander.Header>
+                  <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="78"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="31"/>
+                     </Grid.ColumnDefinitions>
+                     <Label x:Name="lblGroupRace6" Content="Group 7" Grid.Column="0"/>
+                     <local:TimelinePanel x:Name="tlpGroupRace6" Grid.Column="1" Height="14" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="LightGray" AllowDrop="True" DragEnter="tlpGroupRace_DragEnter" DragOver="tlpGroupRace_DragOver" Drop="tlpGroupRace_Drop" local:HlpProp.Index="6"/>
+                  </Grid>
+               </Expander.Header>
+               <Grid x:Name="grdGroupRace6" Margin="2,0,0,3">
+                  <Grid.RowDefinitions/>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="100"/>
+                     <ColumnDefinition Width="*"/>
+                     <ColumnDefinition Width="5"/>
+                  </Grid.ColumnDefinitions>
+               </Grid>
+            </Expander>
+            <Expander x:Name="expGroupRace7" Grid.Row="9" Background="DarkGray" IsExpanded="True" Visibility="Collapsed">
+               <Expander.Header>
+                  <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="78"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="31"/>
+                     </Grid.ColumnDefinitions>
+                     <Label x:Name="lblGroupRace7" Content="Group 8" Grid.Column="0"/>
+                     <local:TimelinePanel x:Name="tlpGroupRace7" Grid.Column="1" Height="14" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="LightGray" AllowDrop="True" DragEnter="tlpGroupRace_DragEnter" DragOver="tlpGroupRace_DragOver" Drop="tlpGroupRace_Drop" local:HlpProp.Index="7"/>
+                  </Grid>
+               </Expander.Header>
+               <Grid x:Name="grdGroupRace7" Margin="2,0,0,3">
+                  <Grid.RowDefinitions/>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="100"/>
+                     <ColumnDefinition Width="*"/>
+                     <ColumnDefinition Width="5"/>
+                  </Grid.ColumnDefinitions>
+               </Grid>
+            </Expander>
+            <Expander x:Name="expGroupRace8" Grid.Row="10" Background="DarkGray" IsExpanded="True" Visibility="Collapsed">
+               <Expander.Header>
+                  <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="78"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="31"/>
+                     </Grid.ColumnDefinitions>
+                     <Label x:Name="lblGroupRace8" Content="Group 9" Grid.Column="0"/>
+                     <local:TimelinePanel x:Name="tlpGroupRace8" Grid.Column="1" Height="14" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="LightGray" AllowDrop="True" DragEnter="tlpGroupRace_DragEnter" DragOver="tlpGroupRace_DragOver" Drop="tlpGroupRace_Drop" local:HlpProp.Index="8"/>
+                  </Grid>
+               </Expander.Header>
+               <Grid x:Name="grdGroupRace8" Margin="2,0,0,3">
+                  <Grid.RowDefinitions/>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="100"/>
+                     <ColumnDefinition Width="*"/>
+                     <ColumnDefinition Width="5"/>
+                  </Grid.ColumnDefinitions>
+               </Grid>
+            </Expander>
+         </Grid>
+      </ScrollViewer>
+      <Expander x:Name="expCyclist" Grid.Row="1" Background="DarkGray" IsExpanded="True">
+         <Expander.Header>
+            <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
+               <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                  <Label x:Name="lblCyclist" Content="{Binding XPath=Page_AdvancedPlanner/Cyclist/@Text}"/>
+               </StackPanel>
+               <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                  <Button x:Name="cmdFitnessPlanCopy"  Content="{Binding XPath=Page_AdvancedPlanner/Cyclist/FitnessPlan/Copy/@Text}"  Padding="5,0,5,0" Click="cmdFitnessPlanCopy_Click"/>
+                  <Button x:Name="cmdFitnessPlanPaste" Content="{Binding XPath=Page_AdvancedPlanner/Cyclist/FitnessPlan/Paste/@Text}" Padding="5,0,5,0" Click="cmdFitnessPlanPaste_Click" Margin="5,0,0,0"/>
+                  <Button x:Name="cmdFitnessPlanClear" Content="{Binding XPath=Page_AdvancedPlanner/Cyclist/FitnessPlan/Clear/@Text}" Padding="5,0,5,0" Click="cmdFitnessPlanClear_Click" Margin="5,0,0,0"/>
+                  <Button x:Name="cmdFitnessPlanUndo"  Content="{Binding XPath=Page_AdvancedPlanner/Cyclist/FitnessPlan/Undo/@Text}"  Padding="5,0,5,0" Click="cmdFitnessPlanUndo_Click"  Margin="5,0,0,0"/>
+               </StackPanel>
+               <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,47,0">
+                  <Label Content="{Binding XPath=Page_AdvancedPlanner/FitnessPlanSize/@Text}"/>
+                  <ComboBox x:Name="cboFitnessPlanSize" SelectionChanged="cboFitnessPlanSize_SelectionChanged" ItemsSource="{Binding XPath=Page_AdvancedPlanner/FitnessPlanSize/Options/Option}" DisplayMemberPath="@Text" SelectedValuePath="@Id" Width="100"/>
+               </StackPanel>
+            </Grid>
+         </Expander.Header>
+         <TabControl x:Name="regCyclist" TabStripPlacement="Left" Margin="0,0,21,3" Padding="0" Background="Transparent">
+            <TabItem x:Name="pgeFitnessPlan" Header="{Binding XPath=Page_AdvancedPlanner/Cyclist/FitnessPlan/@Text}" Width="99" MaxWidth="99" Height="40">
+               <Grid>
+                  <Grid.RowDefinitions>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="*"/>
+                  </Grid.ColumnDefinitions>
+                  <local:TimelinePanel Grid.Row="0" x:Name="tlpCyclistFitness" Height="95" HorizontalAlignment="Stretch" Background="LightGray"/>
+                  <local:TimelinePanel Grid.Row="1" x:Name="tlpCyclistRace" Height="100" HorizontalAlignment="Stretch" Background="LightGray"/>
+               </Grid>
+            </TabItem>
+            <TabItem x:Name="pgeCyclistInfo" Header="{Binding XPath=Page_AdvancedPlanner/Cyclist/CyclistInfo/@Text}" Width="99" MaxWidth="99" Height="40">
+               <Grid>
+                  <TabControl Grid.Row="1" x:Name="regLayoutSelection" HorizontalAlignment="Stretch" Margin="2" SelectionChanged="regLayoutSelection_SelectionChanged">
+                     <TabItem x:Name="pgeAttributes" Header="{Binding XPath=Page_OwnTeam/SquadInfo/Attributes/@Text}"/>
+                     <TabItem x:Name="pgeGeneral" Header="{Binding XPath=Page_OwnTeam/SquadInfo/General/@Text}"/>
+                     <TabItem x:Name="pgeTrainer" Header="{Binding XPath=Page_OwnTeam/SquadInfo/Trainer/@Text}"/>
+                  </TabControl>
+                  <dg:DataGrid Grid.Row="1" x:Name="dgOwnTeam" Margin="7,30,7,7" AutoGenerateColumns="False" RowHeaderWidth="0" IsReadOnly="True" 
+                            HorizontalScrollBarVisibility="Hidden" HorizontalGridLinesBrush="LightGray" VerticalGridLinesBrush="LightGray"
+                            CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
+                     <dg:DataGrid.Resources>
+                        <Style TargetType="{x:Type dg:DataGridCell}" >
+                           <Style.Triggers>
+                              <Trigger Property="dg:DataGridCell.IsSelected" Value="True">
+                                 <Setter Property="Background" Value="Transparent"/>
+                                 <Setter Property="BorderBrush" Value="Transparent"/>
+                                 <Setter Property="Foreground" Value="Black"/>
+                              </Trigger>
+                           </Style.Triggers>
+                        </Style>
+                     </dg:DataGrid.Resources>
+                     <dg:DataGrid.Columns>
+                        <dg:DataGridTextColumn Binding="{Binding Path=RiderAge}" Header="RiderAge" Width="50"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=value_f_current_evaluation, StringFormat=F0}" Header="value_f_current_evaluation" Width="36"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=RiderType}" Header="RiderType" Width="130"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=Charac_plain}" Header="Charac_plain" Width="36"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=Charac_mountain}" Header="Charac_mountain" Width="36"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=Charac_hill}" Header="Charac_hill" Width="36"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=Charac_timetrial}" Header="Charac_timetrial" Width="36"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=Charac_prologue}" Header="Charac_prologue" Width="36"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=Charac_cobble}" Header="Charac_cobble" Width="36"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=Charac_sprint}" Header="Charac_sprint" Width="36"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=Charac_acceleration}" Header="Charac_acceleration" Width="36"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=Charac_downhilling}" Header="Charac_downhilling" Width="36"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=Charac_baroudeur}" Header="Charac_baroudeur" Width="36"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=Charac_endurance}" Header="Charac_endurance" Width="36"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=Charac_resistance}" Header="Charac_resistance" Width="36"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=Charac_recuperation}" Header="Charac_recuperation" Width="36"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=RaceDaysPlanned}" Header="RaceDaysPlanned" Width="85"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=BackFromInjury}" Header="BackFromInjury" Width="100"/>
+                        <dg:DataGridTextColumn Binding="{Binding Path=TrainingType}" Header="TrainingType" Width="150"/>
+                     </dg:DataGrid.Columns>
+                  </dg:DataGrid>
+               </Grid>               
+            </TabItem>
+         </TabControl>
+      </Expander>
+      <ScrollBar x:Name="sbRaces" Grid.Row="2" Orientation="Horizontal" Minimum="0" SmallChange="1" ViewportSize="1" Scroll="sbRaces_Scroll"/>
+   </Grid>
+</Page>

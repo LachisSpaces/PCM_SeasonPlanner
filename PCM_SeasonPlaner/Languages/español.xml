@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PCM_SeasonPlaner>
+   
+   <MainWindow Text="PCM Season Planner">
+      <ApplicationMenu>
+         <PlanerNew Text="Nuevo plan"/>
+         <DBExport Text="Exportar a cdb"/>
+         <PlanerOpen Text="Abrir plan"/>
+         <PlanerSave Text="Guardar plan"/>
+         <LanguageSelection Text="Lenguages" ToolTip="Cambiar el lenguage de la aplicacion"/>
+         <Options Text="Options" ToolTip="General options">
+            <NotifySelection Text="Notificar si demasiado ciclistas"/>
+            <SelectionPlaceholder Text="Evitar el llenado de los ciclistas"/>
+         </Options>
+         <Exit Text="Salir"/>
+      </ApplicationMenu>
+      <TabStart Text="Comenzar">
+         <GroupInterfaces Text="Interfaces">
+            <StartPage Text="Main page"/>
+            <MyTeam Text="Mi Equipo"/>
+            <SeasonPlaner Text="Season planer"/>
+            <SponsorScenario Text="Sponsor Scenario"/>
+            <TeamOverview Text="Equipos Vista General"/>
+            <CyclistOverview Text="Ciclistas Vista General"/>
+            <RaceOverview Text="Carreras Vista General"/>
+         </GroupInterfaces>
+      </TabStart>
+      <TabView Text="Vista">
+         <GroupOrientation Text="Orientacion">
+            <Horizontal Text="Horizontal"/>
+            <Vertical Text="Vertical"/>
+         </GroupOrientation>
+      </TabView>
+      <Messages>
+         <NoDataLoaded Text="Debes abrir un plan o empezar uno nuevo."/>
+         <LoadingWaiting Text="Por favor, espere hasta que la data se haya cargado."/>
+         <OrientationNotAvailable Text="No puedes cambiar la orientacion de esta pagina."/>
+         <SecurityCheckUnsavedData Text="Quieres guardar antes de cerrar tu plan?"/>
+         <FileNameInvalid Text="Nombre de archivo no válido. Por favor, elimine todos los espacios del nombre."/>
+      </Messages>
+   </MainWindow>
+
+   <Page_StartPage Text="Main"></Page_StartPage>
+   
+   <Page_AdvancedPlanner Text="Season planner">
+      <RaceFilter Text="Filter races:">
+         <SponsorObjective Text="Sponsor objective"/>
+         <Allowed Text="Allowed races"/>
+         <WorldTour_Stage Text="WT tour"/>
+         <WorldTour_Classic Text="WT 1-day"/>
+         <HorsCategory_Stage Text="HC tour"/>
+         <HorsCategory_Classic Text="HC 1-day"/>
+         <Category1_Stage Text="Cat.1 tour"/>
+         <Category1_Classic Text="Cat.1 1-day"/>
+         <Category2_Stage Text="Cat.2 tour"/>
+         <Category2_Classic Text="Cat.2 1-day"/>
+         <Others Text="Others"/>
+         <Country Text="Country"/>
+      </RaceFilter>
+      <RaceList Text="All races">
+         <WorldTour Text="UCI WorldTour"/>
+         <HC Text="Hors category"/>
+         <Conti1 Text="Continental cat. 1"/>
+         <Conti2 Text="Continental cat. 2"/>
+         <Others Text="Other races"/>
+      </RaceList>
+      <TeamRace Text="Race schedule"/>
+      <Cyclist Text="Selected cyclist">
+         <FitnessPlan Text="Fitness Planning">
+            <Copy Text="Copy fitness plan"/>
+            <Paste Text="Paste fitness plan"/>
+            <Clear Text="Clear fitness plan"/>
+            <Undo Text="Undo all changes"/>
+            <ProgramInvalid Text="Este entrenamiento de forma no es valido."/>
+         </FitnessPlan>
+         <CyclistInfo Text="Information"/>
+      </Cyclist>
+      <CalendarSize Text="Size of calendar">
+         <Options>
+            <Option Id="1" Text="1 month"/>
+            <Option Id="2" Text="2 months"/>
+            <Option Id="3" Text="3 months"/>
+            <Option Id="4" Text="4 months"/>
+            <Option Id="5" Text="5 months"/>
+            <Option Id="6" Text="6 months"/>
+            <Option Id="10" Text="whole season"/>
+         </Options>
+      </CalendarSize>
+      <CyclistGrouping>
+         <Groups Text="Grupo "/>
+         <NoGroup Text="Sin agrupar"/>
+      </CyclistGrouping>
+      <FitnessPlanSize Text="Size of calendar">
+         <Options>
+            <Option Id="-1" Text="Like above"/>
+            <Option Id="10" Text="whole season"/>
+         </Options>
+      </FitnessPlanSize>
+      <Visibility>
+         <RaceName Text="show race names"/>
+         <StageProfile Text="show race types"/>
+      </Visibility>
+      <ParticipationNotAllowedUCI Text="Your team is not allowed to participate in this race. You can find the detailed rules in the game."/>
+      <ParticipationNotAllowedError Text="Maybe your team is not allowed to participate in this race.\r\nDo you want to participate anyway?"/>
+      <ParticipationNotAllowedTeamCount Text="Only [PLACEHOLDER] teams can particate in this race.\r\nDo you want to participate anyway?\r\nCaution: The game will crash if more than 210 riders participate."/>
+   </Page_AdvancedPlanner>
+   
+   <Page_OwnTeam Text="Mi Equipo">
+      <AcceptOrder Text="Aceptar el actual orden de clasificacion"/>
+      <SquadInfo>
+         <General Text="General"/>
+         <Attributes Text="Atributos"/>
+         <Trainer Text="Entrenador"/>
+      </SquadInfo>
+   </Page_OwnTeam>
+
+   <DBLoader>
+      <LoadPlanNoData Text="No se ha encontrado data guardada, por favor use 'Nuevo plan'."/>
+      <OldGame Text="You cannot use this planner on old games."/>
+      <NoTeamIDfound Text="No hay partidas guardadas. Las temporadas solo pueden ser planificadas sobre una partida guardada."/>
+      <DeleteFitnessProgram Text="Algunos programas de forma ya existen.\r\nQuieres borrarlos antes de crear unos nuevos?\r\nCuidado: Los programas se pueden sobreescribir al crear el nuevo plan."/>
+      <FitnessProgramNoFilesFound Text="No se han encontrado programas de forma, por favor, cree unos nuevos."/>
+      <FitnessProgramFileNotFound Text="Este programa de forma no esta disponible."/>
+      <ToManyCyclists Text="Tiene demasiados ciclistas en su equipo."/>
+      <ParticipationToManyCyclists Text="Ha seleccionado demasiados ciclistas."/>
+      <UsePreviousGroups Text="¿Desea utilizar los grupos de la planificación guardado?"/>
+      <InvalidNumber Text="There is a invalid number in your save.\r\nIt is recommended to use my editor to fix it before you plan your season."/>
+   </DBLoader>
+
+   <DYN_cyclist>
+      <IDcyclist Text="ID"/>
+      <gene_sz_lastname Text="Apellido"/>
+      <gene_sz_firstname Text="Nombre"/>
+      <RiderAge Text="Edad"/>
+      <Charac_plain Text="LLA"/>
+      <Charac_mountain Text="MON"/>
+      <Charac_hill Text="VAL"/>
+      <Charac_downhilling Text="DES"/>
+      <Charac_timetrial Text="CRI"/>
+      <Charac_prologue Text="PRL"/>
+      <Charac_endurance Text="END"/>
+      <Charac_resistance Text="RES"/>
+      <Charac_recuperation Text="REC"/>
+      <Charac_cobble Text="PAV"/>
+      <Charac_baroudeur Text="COM"/>
+      <Charac_sprint Text="SPR"/>
+      <Charac_acceleration Text="ACC"/>
+      <value_f_current_evaluation Text="MED"/>
+      <SortIndex Text="Clasificacion"/>
+      <SortGroup Text="Grupo"/>
+      <ManagerP1 Text="Objective 1"/>
+      <ManagerP2 Text="Objective 2"/>
+      <ManagerP3 Text="Objective 3"/>
+      <RiderType Text="Tipo"/>
+      <RaceDaysPlanned Text="Dias planificados"/>
+      <BackFromInjury Text="Vuelve"/>
+      <BackFromInjury_Hlp Text="dias"/>
+      <TrainingType Text="Entrenamiento"/>
+      <value_i_potentiel Text="Potential"/>
+   </DYN_cyclist>
+   
+   <STA_race>
+      <gene_sz_race_name Text="Carrera"/>
+      <gene_i_number_stages Text="Etapas"/>
+      <CyclistsAllowed Text="Ciclistas"/>
+      <Participation_Team Text="Equipo"/>
+      <StartDate Text="Empieza"/>
+      <EndDate Text="Acaba"/>
+      <Participation_Count Text="Participantes"/>
+   </STA_race>
+   
+   <STA_stage>
+      <gene_sz_stage_name Text="Nombre de la Etapa"/>
+   </STA_stage>
+
+   <CONSTANT>
+      <STA_type_rider>
+         <tour Text="Vuelta Etapas"/>
+         <mountain Text="Escalador"/>
+         <timetrial Text="Contrarreloj"/>
+         <sprint Text="Sprinter"/>
+         <ardennaises Text="Clás. Árdenas"/>
+         <flandriennes Text="Clás. Flandes"/>
+         <flat Text="Combatividad"/>
+      </STA_type_rider>
+      <STA_objectif_type>
+         <ID01 Text="1º"/>
+         <ID02 Text="Top 3"/>
+         <ID03 Text="Top 5"/>
+         <ID04 Text="Top 10"/>
+         <ID05 Text="Top 25"/>
+         <ID06 Text="Llevar el jersey de puntos"/>
+         <ID07 Text="Llevar el jersey de la montaña"/>
+         <ID08 Text="Llevar el jersey de líder"/>
+         <ID09 Text="Victoria(s) de etapa"/>
+         <ID10 Text="Wild card"/>
+         <ID11 Text="Important race: 3"/>
+         <ID12 Text="Important race: 2"/>
+         <ID13 Text="Important race: 1"/>
+         <ID14 Text="1º en Clasif. Escalador"/>
+         <ID15 Text="1º en Clasif. Puntos"/>
+         <ID17 Text="Etapa, Top 3"/>
+         <ID18 Text="Etapa, Top 5"/>
+         <ID19 Text="Etapa, Top 10"/>
+         <ID20 Text="Portar el maillot mejor joven"/>
+         <ID21 Text="Victoria clasif. Mejor joven"/>
+         <ID22 Text="Nuevo record"/>
+         <ID23 Text="Plantilla"/>
+      </STA_objectif_type>
+      <STA_training_exercise>
+         <ID01 Text="Vuelta Etapas"/>
+         <ID02 Text="Escalador"/>
+         <ID03 Text="Contrarreloj"/>
+         <ID04 Text="Sprinter"/>
+         <ID05 Text="Clás. Árdenas"/>
+         <ID06 Text="Clás. Flandes"/>
+         <ID07 Text="Combatividad"/>
+      </STA_training_exercise>
+      <STA_injury>
+         <ID006 Text="Fractura en las cervicales"/>
+         <ID008 Text="Esguince cervical"/>
+         <ID024 Text="Fractura de costilla"/>
+         <ID040 Text="Contusiones en la espalda"/>
+         <ID061 Text="Contractura muscular"/>
+         <ID110 Text="contusiones en el brazo"/>
+         <ID125 Text="Fractura de coxis"/>
+         <ID132 Text="sinusitis"/>
+         <ID149 Text="Fractura de fémur"/>
+         <ID168 Text="Fractura de rótula"/>
+         <ID169 Text="Fractura de tibia"/>
+         <ID219 Text="Contusiones en el codo"/>
+         <ID222 Text="luxación de codo"/>
+         <ID249 Text="contusiones en el antebrazo"/>
+         <ID270 Text="esguince de muñeca"/>
+         <ID271 Text="luxación de muñeca"/>
+         <ID272 Text="muñeca magullada"/>
+         <ID280 Text="contusiones en la mano"/>
+         <ID281 Text="Microfractura de omóplato"/>
+         <ID282 Text="Contusiones en el hombro"/>
+         <ID283 Text="Rotura de muñeca"/>
+         <ID284 Text="Rotura de mano"/>
+         <ID285 Text="Rotura de costilla"/>
+         <ID286 Text="Desgarro del tendón rotuliano"/>
+         <ID287 Text="Fractura de escafoides"/>
+         <ID289 Text="Fractura de cráneo"/>
+         <ID290 Text="Vertebra fracturada"/>
+         <ID291 Text="Brazo roto"/>
+         <ID294 Text="Mononucleosis"/>
+         <ID295 Text="Indigestión"/>
+         <ID296 Text="Microtendinitis en la rodilla"/>
+         <ID297 Text="Tendinitis de rodilla"/>
+         <ID300 Text="Cadera fracturada"/>
+         <ID301 Text="Fractura de clavícula"/>
+         <ID302 Text="Esguince de rodilla"/>
+         <ID303 Text="antebrazo magullado"/>
+         <ID304 Text="contractura en el brazo"/>
+         <ID305 Text="Fractura de la apófisis"/>
+         <ID306 Text="Catarro"/>
+         <ID307 Text="Anginas"/>
+         <ID308 Text="Rinofaringitis"/>
+         <ID309 Text="Bronquitis"/>
+         <ID310 Text="Gripe"/>
+         <ID311 Text="Gastroenteritis"/>
+      </STA_injury>
+   </CONSTANT>
+</PCM_SeasonPlaner>

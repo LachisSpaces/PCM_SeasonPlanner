@@ -1,0 +1,134 @@
+﻿<Page x:Class="PCM_SeasonPlaner.Pages.SponsorScenario"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:sysio="clr-namespace:System.IO;assembly=mscorlib"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      DataContext="{Binding Source={StaticResource Lang}}"
+      Loaded="Page_Loaded" Unloaded="Page_Unloaded">
+   <Grid SnapsToDevicePixels="True" Background="DarkGray">
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="250"/>
+         <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      
+      <Grid x:Name="grdSelection" Grid.Column="0" Margin="7,7,0,7" Background="LightGray">
+         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+         </Grid.RowDefinitions>
+         <Label   Grid.Row="0" Content="{Binding XPath=Page_SponsorScenario/ScenariosAvailable/@Text}" FontWeight="Bold" Margin="3,0"/>
+         <ListBox Grid.Row="1" x:Name="lboSelectScenario" Margin="7,0,7,7" SelectionChanged="lboSelectScenario_SelectionChanged" BorderBrush="Transparent"/>
+      </Grid>
+      
+      <Grid x:Name="grdDetails" Grid.Column="1" Margin="7" Background="LightGray">
+         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+         </Grid.RowDefinitions>
+
+         <Label     Grid.Row="0" Content="{Binding XPath=Page_SponsorScenario/DescriptionShort/@Text}" FontWeight="Bold" Margin="3,0" VerticalAlignment="Bottom"/>
+         <Border    Grid.Row="1" Background="#EAEAEA" Margin="7,0" Padding="4">
+            <TextBlock x:Name="txtDescriptionShort"/>
+         </Border>
+
+         <Label     Grid.Row="2" Content="{Binding XPath=Page_SponsorScenario/DescriptionFull/@Text}"  FontWeight="Bold" Margin="3,0" VerticalAlignment="Bottom"/>
+         <ScrollViewer Grid.Row="3" Margin="7,0" Padding="4" Background="#EAEAEA" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <TextBlock x:Name="txtDescriptionFull"/>
+         </ScrollViewer>
+         
+         <Label     Grid.Row="4" Content="{Binding XPath=Page_SponsorScenario/Consequences/@Text}" FontWeight="Bold" Margin="3,0" VerticalAlignment="Bottom"/>
+         <Grid      Grid.Row="5" Margin="7,0,7,7" Background="White">
+            <Grid.RowDefinitions>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="4"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="5"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="Auto"/>
+               <ColumnDefinition Width="Auto"/>
+               <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label   Grid.Row="0" Grid.ColumnSpan="2" Content="{Binding XPath=Page_SponsorScenario/Consequences/ContractDuration/@Text}"/>
+            <Label   Grid.Row="1" Grid.Column="0" Content="{Binding XPath=Page_SponsorScenario/Consequences/Actual/@Text}" Margin="0,0,3,0" Padding="5,1" VerticalAlignment="Bottom"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtContractEndActual" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Height="20" MinWidth="40"/>
+            <Label   Grid.Row="3" Grid.Column="0" Content="{Binding XPath=Page_SponsorScenario/Consequences/Suggested/@Text}" Margin="0,0,3,0" Padding="5,1" VerticalAlignment="Bottom"/>
+            <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtContractEndSuggested" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Height="20" MinWidth="40"/>
+         </Grid>
+         <Grid      Grid.Row="6" Margin="7,0,7,7" Background="White">
+            <Grid.RowDefinitions>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="4"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="5"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="Auto"/>
+               <ColumnDefinition Width="Auto"/>
+               <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label   Grid.Row="0" Grid.ColumnSpan="2" Content="{Binding XPath=Page_SponsorScenario/Consequences/Budget/@Text}"/>
+            <Label   Grid.Row="1" Grid.Column="0" Content="{Binding XPath=Page_SponsorScenario/Consequences/SeasonActual/@Text}" Margin="0,0,3,0" Padding="5,1" VerticalAlignment="Bottom"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtBudgetActual" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Height="20" MinWidth="50"/>
+            <Label   Grid.Row="1" Grid.Column="2" Content="{Binding XPath=Page_SponsorScenario/Consequences/PerMonth/@Text}" Margin="3,0,0,0" Padding="5,1" VerticalAlignment="Bottom"/>
+            <Label   Grid.Row="3" Grid.Column="0" Content="{Binding XPath=Page_SponsorScenario/Consequences/SeasonNext/@Text}" Margin="0,0,3,0" Padding="5,1" VerticalAlignment="Bottom"/>
+            <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtBudgetNext" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Height="20" MinWidth="50"/>
+            <Label   Grid.Row="3" Grid.Column="2" Content="{Binding XPath=Page_SponsorScenario/Consequences/PerMonth/@Text}" Margin="3,0,0,0" Padding="5,1" VerticalAlignment="Bottom"/>
+         </Grid>
+         <Grid      Grid.Row="7" Margin="7,0,7,7" Background="White">
+            <Grid.RowDefinitions>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="4"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="5"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="Auto"/>
+               <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label     Grid.Row="0" Grid.ColumnSpan="2" Content="{Binding XPath=Page_SponsorScenario/Consequences/SecondaryAllowed/@Text}"/>
+            <Label     Grid.Row="1" Grid.Column="0" Content="{Binding XPath=Page_SponsorScenario/Consequences/SeasonActual/@Text}" Margin="0,0,3,0" Padding="5,1" VerticalAlignment="Bottom"/>
+            <CheckBox  Grid.Row="1" Grid.Column="1" x:Name="ckbSecondaryActual" VerticalAlignment="Center"/>
+            <Label     Grid.Row="3" Grid.Column="0" Content="{Binding XPath=Page_SponsorScenario/Consequences/SeasonNext/@Text}" Margin="0,0,3,0" Padding="5,1" VerticalAlignment="Bottom"/>
+            <CheckBox  Grid.Row="3" Grid.Column="1" x:Name="ckbSecondaryNext" VerticalAlignment="Center"/>
+         </Grid>
+         <Grid      Grid.Row="8" Margin="7,0,7,7" Background="White">
+            <Grid.RowDefinitions>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="4"/>
+               <RowDefinition Height="Auto"/>
+               <RowDefinition Height="5"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="Auto"/>
+               <ColumnDefinition Width="Auto"/>
+               <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label   Grid.Row="0" Grid.ColumnSpan="2" Content="{Binding XPath=Page_SponsorScenario/Consequences/FinanSolde/@Text}"/>
+            <Label   Grid.Row="1" Grid.Column="0" Content="{Binding XPath=Page_SponsorScenario/Consequences/Actual/@Text}" Margin="0,0,3,0" Padding="5,1" VerticalAlignment="Bottom"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtFinanSoldeActual" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Height="20" MinWidth="40"/>
+            <Label   Grid.Row="3" Grid.Column="0" Content="{Binding XPath=Page_SponsorScenario/Consequences/Suggested/@Text}" Margin="0,0,3,0" Padding="5,1" VerticalAlignment="Bottom"/>
+            <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtFinanSoldeSuggested" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Height="20" MinWidth="40"/>
+         </Grid>
+
+         <Button    Grid.Row="10" x:Name="btnApply" Click="btnApply_Click" Content="{Binding XPath=Page_SponsorScenario/Apply/@Text}" Margin="0,7,7,0" Padding="10,5" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+         <Border    Grid.Row="11"  Margin="7,0,7,7">
+            <TextBlock Foreground="DarkRed" Text="{Binding XPath=Page_SponsorScenario/BetaNotes/@Text}"/>
+         </Border>
+      </Grid>
+   </Grid>
+</Page>

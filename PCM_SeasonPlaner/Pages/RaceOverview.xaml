@@ -1,0 +1,26 @@
+﻿<Page x:Class="PCM_SeasonPlaner.Pages.RaceOverview"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:igDP="http://infragistics.com/DataPresenter">
+   <Grid SnapsToDevicePixels="True">
+      <Grid.RowDefinitions>
+         <RowDefinition Height="Auto"/>
+         <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <igDP:XamDataGrid Grid.Row="1" x:Name="xdgRace" FieldLayoutInitialized="xdgRace_FieldLayoutInitialized">
+         <igDP:XamDataGrid.FieldLayoutSettings>
+            <igDP:FieldLayoutSettings AllowDelete="False" AllowAddNew="False" HighlightAlternateRecords="True"/>
+         </igDP:XamDataGrid.FieldLayoutSettings>
+         <igDP:XamDataGrid.FieldSettings>
+            <igDP:FieldSettings AllowEdit="False"/>
+         </igDP:XamDataGrid.FieldSettings>
+         <igDP:XamDataGrid.FieldLayouts>
+            <igDP:FieldLayout>
+               <igDP:FieldLayout.SortedFields>
+                  <igDP:FieldSortDescription FieldName="StartDate" Direction="Ascending" IsGroupBy="False"/>
+               </igDP:FieldLayout.SortedFields>
+            </igDP:FieldLayout>
+         </igDP:XamDataGrid.FieldLayouts>
+      </igDP:XamDataGrid>
+   </Grid>
+</Page>

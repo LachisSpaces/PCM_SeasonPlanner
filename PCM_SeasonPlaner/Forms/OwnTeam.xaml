@@ -1,0 +1,259 @@
+﻿<Window x:Class="PCM_SeasonPlaner.OwnTeam"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:igDP="http://infragistics.com/DataPresenter"
+        xmlns:igEditors="http://infragistics.com/Editors"
+        xmlns:local="clr-namespace:PCM_SeasonPlaner"
+        DataContext="{Binding Source={StaticResource Lang}}"
+        Unloaded="Window_Unloaded"
+        Height="700" Width="1000">
+   <Window.Resources>
+      <Style x:Key="styleAttributes" TargetType="{x:Type igDP:CellValuePresenter}">
+         <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=Value, Converter={StaticResource cvpBackgroundBrushConverter}}"/>
+      </Style>
+      <Style x:Key="styleFix" TargetType="{x:Type igEditors:ValueEditor}">
+         <Setter Property="Format" Value="00"/>
+      </Style>
+   </Window.Resources>
+   <Grid SnapsToDevicePixels="True">
+      <Grid.RowDefinitions>
+         <RowDefinition Height="Auto"/>
+         <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <Button Grid.Row="0" x:Name="btnAcceptOrder" HorizontalAlignment="Right" Margin="0,2,2,0" Content="{Binding XPath=Page_OwnTeam/AcceptOrder/@Text}" Click="btnAcceptOrder_Click"/>
+      <TabControl Grid.Row="0" x:Name="regLayoutSelection" HorizontalAlignment="Left" MouseWheel="regLayoutSelection_MouseWheel" SelectionChanged="regLayoutSelection_SelectionChanged">
+         <TabItem x:Name="pgeGeneral" Header="{Binding XPath=Page_OwnTeam/SquadInfo/General/@Text}"/>
+         <TabItem x:Name="pgeAttributes" Header="{Binding XPath=Page_OwnTeam/SquadInfo/Attributes/@Text}"/>
+         <TabItem x:Name="pgeContract" Header="{Binding XPath=Page_OwnTeam/SquadInfo/Contract/@Text}"/>
+         <TabItem x:Name="pgeInjuries" Header="{Binding XPath=Page_OwnTeam/SquadInfo/Injuries/@Text}"/>
+         <TabItem x:Name="pgeSeason" Header="{Binding XPath=Page_OwnTeam/SquadInfo/Season/@Text}"/>
+         <TabItem x:Name="pgeFitness" Header="{Binding XPath=Page_OwnTeam/SquadInfo/FitnessTraining/@Text}"/>
+         <TabItem x:Name="pgeTrainer" Header="{Binding XPath=Page_OwnTeam/SquadInfo/Trainer/@Text}"/>
+      </TabControl>
+      <igDP:XamDataGrid 
+         Grid.Row="1" 
+         x:Name="xdgOwnTeam" 
+         AutoFit="True" 
+         GroupByAreaLocation="None" 
+         InitializeRecord="xdgOwnTeam_InitializeRecord" 
+         FieldLayoutInitialized="xdgOwnTeam_FieldLayoutInitialized">
+         <igDP:XamDataGrid.FieldLayoutSettings>
+            <igDP:FieldLayoutSettings AutoGenerateFields="False" AllowDelete="False" HighlightAlternateRecords="True">
+               <igDP:FieldLayoutSettings.DataRecordCellAreaGridTemplate>
+                  <ItemsPanelTemplate>
+                     <Grid>
+                        <Grid.ColumnDefinitions>
+                           <!--ColumnDefinition Width="50"/-->
+                           <ColumnDefinition Width="150"/>
+                           <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                     </Grid>
+                  </ItemsPanelTemplate>
+               </igDP:FieldLayoutSettings.DataRecordCellAreaGridTemplate>
+            </igDP:FieldLayoutSettings>
+         </igDP:XamDataGrid.FieldLayoutSettings>
+         <igDP:XamDataGrid.FieldLayouts>
+            <igDP:FieldLayout>
+               <igDP:FieldLayout.Fields>
+                  <igDP:Field Name="gene_sz_lastname" Label="Last name">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="gene_sz_firstname" Label="First name">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="gene_b_sprinter" Label="Sprinter">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="70" LabelMaxWidth="70"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="charac_f_plain" Label="FL">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="40" LabelMaxWidth="40" EditorStyle="{StaticResource styleFix}" CellValuePresenterStyle="{StaticResource styleAttributes}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="charac_f_mountain" Label="MO">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="40" LabelMaxWidth="40" EditorStyle="{StaticResource styleFix}" CellValuePresenterStyle="{StaticResource styleAttributes}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="charac_f_hill" Label="HIL">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="40" LabelMaxWidth="40" EditorStyle="{StaticResource styleFix}" CellValuePresenterStyle="{StaticResource styleAttributes}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="charac_f_downhilling" Label="DH">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="40" LabelMaxWidth="40" EditorStyle="{StaticResource styleFix}" CellValuePresenterStyle="{StaticResource styleAttributes}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="charac_f_timetrial" Label="TT">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="40" LabelMaxWidth="40" EditorStyle="{StaticResource styleFix}" CellValuePresenterStyle="{StaticResource styleAttributes}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="charac_f_endurance" Label="STA">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="40" LabelMaxWidth="40" EditorStyle="{StaticResource styleFix}" CellValuePresenterStyle="{StaticResource styleAttributes}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="charac_f_resistance" Label="RES">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="40" LabelMaxWidth="40" EditorStyle="{StaticResource styleFix}" CellValuePresenterStyle="{StaticResource styleAttributes}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="charac_f_recuperation" Label="REC">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="40" LabelMaxWidth="40" EditorStyle="{StaticResource styleFix}" CellValuePresenterStyle="{StaticResource styleAttributes}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="charac_f_cobble" Label="COB">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="40" LabelMaxWidth="40" EditorStyle="{StaticResource styleFix}" CellValuePresenterStyle="{StaticResource styleAttributes}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="charac_f_baroudeur" Label="FTR">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="40" LabelMaxWidth="40" EditorStyle="{StaticResource styleFix}" CellValuePresenterStyle="{StaticResource styleAttributes}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="charac_f_sprint" Label="SP">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="40" LabelMaxWidth="40" EditorStyle="{StaticResource styleFix}" CellValuePresenterStyle="{StaticResource styleAttributes}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="charac_f_acceleration" Label="ACC">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="40" LabelMaxWidth="40" EditorStyle="{StaticResource styleFix}" CellValuePresenterStyle="{StaticResource styleAttributes}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:UnboundField Name="AVG_charac" Label="AVG">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="40" LabelMaxWidth="40" EditAsType="{x:Type sys:Decimal}" EditorStyle="{StaticResource styleFix}" CellValuePresenterStyle="{StaticResource styleAttributes}"/>
+                     </igDP:Field.Settings>
+                  </igDP:UnboundField>
+                  <igDP:Field Name="RiderType" Label="Type">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="130" LabelMaxWidth="130"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="fitness_f_forme" Label="Fitness">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="50" LabelMaxWidth="50" EditAsType="{x:Type sys:Decimal}" EditorStyle="{StaticResource styleFix}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="FitnessInfo" Label="Fitness">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="130" LabelMaxWidth="130"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="RaceName" Label="Race">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="250" LabelMaxWidth="250"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="gene_i_num_victories" Label="Victories">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="70" LabelMaxWidth="70"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="score_f_UCI" Label="Score UCI">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="70" LabelMaxWidth="70" EditAsType="{x:Type sys:Decimal}" EditorStyle="{StaticResource styleFix}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="rank_i_UCI" Label="Rank UCI">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="70" LabelMaxWidth="70"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="mental_f_moral" Label="Moral">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="60" LabelMaxWidth="60" EditAsType="{x:Type sys:Decimal}" EditorStyle="{StaticResource styleFix}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="fitness_f_forme_fatigue" Label="Fatigue">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="90" LabelMaxWidth="90" EditAsType="{x:Type sys:Decimal}" EditorStyle="{StaticResource styleFix}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="value_i_num_day_races" Label="Days raced">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="70" LabelMaxWidth="70"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="gene_i_age" Label="Age">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="50" LabelMaxWidth="50"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="EndOfContract" Label="EndContract">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="100" LabelMaxWidth="100"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="ContractSalary" Label="Salary">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="100" LabelMaxWidth="100"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="RiderStatut" Label="Status">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="200" LabelMaxWidth="200"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="NextYear" Label="NextYear">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="100" LabelMaxWidth="100"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="InjuryType" Label="Injury">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="200" LabelMaxWidth="200"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="BackFromInjury" Label="Zurück">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="100" LabelMaxWidth="100"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="StaffDoctor" Label="Doctor">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="200" LabelMaxWidth="200"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="FitnessProgram" Label="Planing">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="200" LabelMaxWidth="200"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="TrainingType" Label="Training">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="150" LabelMaxWidth="150"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="StaffTrainer" Label="Trainer">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellMaxWidth="150" LabelMaxWidth="150"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="SortIndex" Label="Sort">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="True" CellMaxWidth="70" LabelMaxWidth="70" EditorStyle="{StaticResource styleFix}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="IDcyclist" Label="ID" Visibility="Collapsed">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+               </igDP:FieldLayout.Fields>
+            </igDP:FieldLayout>
+         </igDP:XamDataGrid.FieldLayouts>
+      </igDP:XamDataGrid>
+   </Grid>
+</Window>

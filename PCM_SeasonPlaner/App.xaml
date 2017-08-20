@@ -1,0 +1,34 @@
+﻿<Application x:Class="PCM_SeasonPlaner.App"
+             xmlns:appl="clr-namespace:PCM_SeasonPlaner"
+             xmlns:local="clr-namespace:PCM_SeasonPlaner"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             DispatcherUnhandledException="App_DispatcherUnhandledException"
+             StartupUri="MainWindow.xaml">
+   <Application.Resources>
+
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="pack://application:,,,/WPFToolkit;component/Themes/aero.normalcolor.xaml"/>
+            <ResourceDictionary Source="/PresentationFramework.Aero, Version=3.0.0.0,
+                                Culture=neutral, PublicKeyToken=31bf3856ad364e35,
+                                ProcessorArchitecture=MSIL;component/themes/aero.normalcolor.xaml"/>
+         </ResourceDictionary.MergedDictionaries>
+         
+         <XmlDataProvider x:Key="Lang" XPath="PCM_SeasonPlaner"/>
+         
+         <local:CvpFavoriteRaceBrushConverter x:Key="cvpFavoriteRaceBrushConverter"/>
+         <local:CvpBackgroundBrushConverter x:Key="cvpBackgroundBrushConverter"/>
+
+         <Color x:Key="colorTransparentBlack" A="0" R="0" G="0" B="0"/>
+         <Color x:Key="colorTransparentDarkOrange" A="0" R="#FF" G="#8C" B="#00"/>
+         
+         <LinearGradientBrush x:Key="brushSelected" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Offset="0.0" Color="{StaticResource colorTransparentDarkOrange}"/>
+            <GradientStop Offset="0.5" Color="{StaticResource colorTransparentDarkOrange}"/>
+            <GradientStop Offset="1.0" Color="DarkOrange"/>
+         </LinearGradientBrush>
+         
+      </ResourceDictionary>
+   </Application.Resources>
+</Application>

@@ -1,0 +1,241 @@
+﻿<Page x:Class="PCM_SeasonPlaner.SeasonPlaner_V"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:igDP="http://infragistics.com/DataPresenter"
+    xmlns:igEditors="http://infragistics.com/Editors"
+    xmlns:local="clr-namespace:PCM_SeasonPlaner"
+    DataContext="{Binding Source={StaticResource Lang}}"
+    Unloaded="Page_Unloaded">
+   <Page.Resources>
+      <XmlDataProvider x:Key="Priorities">
+         <x:XData>
+            <priorities xmlns="">
+               <priority text="3" id="3" />
+               <priority text="2" id="2" />
+               <priority text="1" id="1" />
+            </priorities>
+         </x:XData>
+      </XmlDataProvider>
+      <Style TargetType="{x:Type igDP:HeaderPresenter}">
+         <Setter Property="Height" Value="100"/>
+      </Style>
+      <Style TargetType="{x:Type igDP:DataRecordCellArea}">
+         <Setter Property="MaxHeight" Value="30"/>
+      </Style>
+      <Style TargetType="{x:Type igDP:LabelPresenter}">
+         <Setter Property="VerticalAlignment" Value="Bottom"/>
+         <Setter Property="Height" Value="100"/>
+         <Setter Property="Template">
+            <Setter.Value>
+               <ControlTemplate TargetType="{x:Type igDP:LabelPresenter}" >
+                  <ContentPresenter HorizontalAlignment="Center" Margin="0,0,0,5">
+                     <ContentPresenter.LayoutTransform>
+                        <RotateTransform Angle="-90"/>
+                     </ContentPresenter.LayoutTransform>
+                  </ContentPresenter>
+               </ControlTemplate>
+            </Setter.Value>
+         </Setter>
+      </Style>
+      <Style x:Key="styleRaceName" TargetType="{x:Type igDP:CellValuePresenter}">
+         <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Record.Cells[SponsorObjectif].Value}"/>
+         <Setter Property="HorizontalContentAlignment" Value="Left"/>
+      </Style>
+      <Style TargetType="{x:Type igDP:CellValuePresenter}">
+         <Setter Property="HorizontalContentAlignment" Value="Center"/>
+      </Style>
+      <Style x:Key="styleClass" TargetType="{x:Type igDP:CellValuePresenter}">
+         <Setter Property="HorizontalAlignment" Value="Right"/>
+         <Setter Property="VerticalAlignment" Value="Center"/>
+         <Setter Property="Template">
+            <Setter.Value>
+               <ControlTemplate TargetType="{x:Type igDP:CellValuePresenter}">
+                  <Image Width="40" Height="20" Opacity=".5" Margin="0,0,2,0" Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"/>
+               </ControlTemplate>
+            </Setter.Value>
+         </Setter>
+      </Style>
+      <Style x:Key="styleCountry" TargetType="{x:Type igDP:CellValuePresenter}">
+         <Setter Property="HorizontalAlignment" Value="Right"/>
+         <Setter Property="VerticalAlignment" Value="Center"/>
+         <Setter Property="Template">
+            <Setter.Value>
+               <ControlTemplate TargetType="{x:Type igDP:CellValuePresenter}">
+                  <Image Width="32" Height="32" Opacity=".25" Margin="0,-7,45,-7" Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"/>
+               </ControlTemplate>
+            </Setter.Value>
+         </Setter>
+      </Style>
+      <Style x:Key="styleObjectif" TargetType="{x:Type igDP:CellValuePresenter}">
+         <Setter Property="HorizontalAlignment" Value="Left"/>
+         <Setter Property="Template">
+            <Setter.Value>
+               <ControlTemplate TargetType="{x:Type igDP:CellValuePresenter}">
+                  <Image Width="32" Height="32" Margin="0,0,0,0" Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"/>
+               </ControlTemplate>
+            </Setter.Value>
+         </Setter>
+      </Style>
+      <Style x:Key="styleParticipationTeam" TargetType="{x:Type igDP:CellValuePresenter}">
+         <Setter Property="HorizontalAlignment" Value="Center"/>
+         <Setter Property="VerticalAlignment" Value="Center"/>
+         <Setter Property="Template">
+            <Setter.Value>
+               <ControlTemplate TargetType="{x:Type igDP:CellValuePresenter}">
+                  <CheckBox x:Name="ckbTeam" IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}" Checked="ckbTeam_Checked" Unchecked="ckbTeam_Unchecked"/>
+               </ControlTemplate>
+            </Setter.Value>
+         </Setter>
+      </Style>
+      <Style x:Key="styleFavoriteRace" TargetType="{x:Type igDP:CellValuePresenter}">
+         <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=Value, Converter={StaticResource cvpFavoriteRaceBrushConverter}}"/>
+         <Setter Property="HorizontalContentAlignment" Value="Center"/>
+      </Style>
+      <Style x:Key="styleDateShort"  TargetType="{x:Type igEditors:XamDateTimeEditor}">
+         <Setter Property="Mask" Value="dd.mm."/>
+      </Style>
+   </Page.Resources>
+
+   <Grid SnapsToDevicePixels="True">
+      <Grid.RowDefinitions>
+         <RowDefinition Height="*"/>
+         <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      <Expander Grid.Row="1" x:Name="expRaceCalendar" Background="DarkGray" IsExpanded="True">
+         <Expander.Header>
+            <StackPanel Orientation="Horizontal">
+               <Label Content="{Binding XPath=Page_SeasonPlaner/ShowActiveRaces/@Text}"/>
+               <CheckBox x:Name="ckbShowActiveEventsOnlyPlan"     VerticalAlignment="Center" Margin="10,0,0,0" Click="ckbShowActiveEventsOnlyPlan_Click" Content="{Binding XPath=Page_SeasonPlaner/ShowActiveRaces/RacePlaner/@Text}"/>
+               <CheckBox x:Name="ckbShowActiveEventsOnlyCalendar" VerticalAlignment="Center" Margin="10,0,0,0" IsChecked="{Binding Path=ShowActiveEventsOnly, ElementName=tlpRaceTimeline}" Content="{Binding XPath=Page_SeasonPlaner/ShowActiveRaces/RaceCalendar/@Text}"/>
+            </StackPanel>
+         </Expander.Header>
+         <local:TimelinePanel Grid.Row="1" x:Name="tlpRaceTimeline" Height="80" HorizontalAlignment="Stretch" Background="LightGray"></local:TimelinePanel>
+      </Expander>
+      <igDP:XamDataGrid
+            Grid.Row="0" 
+            Name="xdgRace"
+            GroupByAreaLocation="None" 
+            ScrollingMode="Immediate"
+            UpdateMode="OnCellChangeOrLostFocus"
+            InitializeRecord="xdgRace_InitializeRecord"
+            RecordsInViewChanged="xdgRace_RecordsInViewChanged"
+            FieldLayoutInitialized="xdgRace_FieldLayoutInitialized">
+         <igDP:XamDataGrid.FieldSettings>
+            <igDP:FieldSettings AllowResize="False" LabelClickAction="Default" GroupByMode="Month"/>
+         </igDP:XamDataGrid.FieldSettings>
+         <igDP:XamDataGrid.FieldLayoutSettings>
+            <igDP:FieldLayoutSettings 
+               AutoGenerateFields="False" AutoArrangeCells="Never"
+               HighlightAlternateRecords="True" 
+               RecordSelectorLocation="None"
+               AllowDelete="False">
+               <igDP:FieldLayoutSettings.DataRecordCellAreaGridTemplate>
+                  <ItemsPanelTemplate>
+                     <Grid>
+                        <Grid.ColumnDefinitions>
+                           <ColumnDefinition Width="200"/>
+                           <ColumnDefinition Width="43"/>
+                           <ColumnDefinition Width="43"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="37"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                           <ColumnDefinition Width="25"/>
+                        </Grid.ColumnDefinitions>
+                     </Grid>
+                  </ItemsPanelTemplate>
+               </igDP:FieldLayoutSettings.DataRecordCellAreaGridTemplate>
+            </igDP:FieldLayoutSettings>
+         </igDP:XamDataGrid.FieldLayoutSettings>
+         <igDP:XamDataGrid.FieldLayouts>
+            <igDP:FieldLayout>
+               <igDP:FieldLayout.Fields>
+                  <igDP:Field Name="IDrace" Visibility="Collapsed" IsPrimary="True"/>
+                  <igDP:Field Column="0" Name="PicturePathClass" Label="">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings CellValuePresenterStyle="{StaticResource styleClass}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Column="0" Name="PicturePathCountry" Label="">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings CellValuePresenterStyle="{StaticResource styleCountry}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Column="0" Name="PicturePathSponsorObjectif" Label="">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings CellValuePresenterStyle="{StaticResource styleObjectif}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Column="0" Name="gene_sz_race_name" Label="Race">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" CellValuePresenterStyle="{StaticResource styleRaceName}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Column="1" Name="StartDate" Label="Starts">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" EditorStyle="{StaticResource styleDateShort}">
+                        </igDP:FieldSettings>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Column="2" Name="EndDate" Label="Ends">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False" EditorStyle="{StaticResource styleDateShort}">
+                        </igDP:FieldSettings>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Column="3" Name="gene_i_number_stages" Label="Stages">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:UnboundField Column="4" Name="CyclistsAllowed" Label="Cyclists">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="False"/>
+                     </igDP:Field.Settings>
+                  </igDP:UnboundField>
+                  <igDP:Field Column="5" Name="Participation_Team" Label="Team">
+                     <igDP:Field.Settings>
+                        <igDP:FieldSettings AllowEdit="True" CellValuePresenterStyle="{StaticResource styleParticipationTeam}"/>
+                     </igDP:Field.Settings>
+                  </igDP:Field>
+                  <igDP:Field Name="gene_i_min_cyclist_by_team" Visibility="Collapsed"/>
+                  <igDP:Field Name="gene_i_max_cyclist_by_team" Visibility="Collapsed"/>
+                  <igDP:Field Name="SponsorObjectif" Visibility="Collapsed"/>
+               </igDP:FieldLayout.Fields>
+               <igDP:FieldLayout.SortedFields>
+                  <igDP:FieldSortDescription FieldName="StartDate" Direction="Ascending" IsGroupBy="False"/>
+               </igDP:FieldLayout.SortedFields>
+            </igDP:FieldLayout>
+         </igDP:XamDataGrid.FieldLayouts>
+      </igDP:XamDataGrid>
+   </Grid>
+</Page>

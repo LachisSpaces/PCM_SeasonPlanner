@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PCM_SeasonPlaner>
+  <Page_OwnTeam>
+    <General>
+      <RiderAge/>
+      <value_f_current_evaluation/>
+      <RiderType/>
+      <RaceDaysPlanned/>
+      <BackFromInjury/>
+    </General>
+    <Attributes>
+      <RiderAge/>
+      <value_f_current_evaluation/>
+      <RiderType/>
+      <Charac_plain/>
+      <Charac_mountain/>
+      <Charac_hill/>
+      <Charac_timetrial/>
+      <Charac_prologue/>
+      <Charac_cobble/>
+      <Charac_sprint/>
+      <Charac_acceleration/>
+      <Charac_downhilling/>
+      <Charac_baroudeur/>
+      <Charac_endurance/>
+      <Charac_resistance/>
+      <Charac_recuperation/>
+    </Attributes>
+    <Trainer>
+      <value_i_potentiel/>
+      <RiderType/>
+      <TrainingType/>
+    </Trainer>
+  </Page_OwnTeam>
+</PCM_SeasonPlaner>
