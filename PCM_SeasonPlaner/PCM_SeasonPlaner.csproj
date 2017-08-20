@@ -149,6 +149,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AttachedProperties\AttachedProperties.cs" />
+    <Compile Include="DYN_subsquad_config.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DYN_subsquad_config.xsd</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -195,6 +200,17 @@
     <Compile Include="RaceTimeLinePanel\DateTimeTypeConverter.cs" />
     <Compile Include="RaceTimeLinePanel\TimeLinePanel.cs" />
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <None Include="DYN_subsquad_config.xsc">
+      <DependentUpon>DYN_subsquad_config.xsd</DependentUpon>
+    </None>
+    <None Include="DYN_subsquad_config.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DYN_subsquad_config.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DYN_subsquad_config.xss">
+      <DependentUpon>DYN_subsquad_config.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -337,6 +353,7 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="DYN_subsquad_config.xml" />
     <Content Include="Formatting.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
